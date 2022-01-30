@@ -11,6 +11,7 @@ screen.bgcolor("black")
 screen.title("Snake game")
 screen.tracer(0)
 
+
 snake = Snake()
 food = Food()
 scoreboard = Scoreboard()
@@ -20,8 +21,6 @@ screen.onkey(fun=snake.up, key="Up")
 screen.onkey(fun=snake.down, key="Down")
 screen.onkey(fun=snake.left, key="Left")
 screen.onkey(fun=snake.right, key="Right")
-
-
 
 
 game_is_on = True
@@ -41,13 +40,50 @@ while game_is_on:
 
     '''Check detect collision with wall'''
     if snake.head.xcor() > 280 or snake.head.xcor() < -300 or snake.head.ycor() > 300 or snake.head.ycor() < -280:
-        game_is_on = False
-        scoreboard.game_over()
 
+        if scoreboard.current_score > int(scoreboard.high_score):
+            scoreboard.high_score = scoreboard.current_score
+            scoreboard.record_hight_score(scoreboard.current_score)
+        scoreboard.current_score = 0
+        snake.refresh_snake()
+
+    '''Check detect collision with snake segments'''
     for segment in snake.actual_snake[1:]:
         if snake.head.distance(segment) < 10:
-            game_is_on = False
-            scoreboard.game_over()
+            if scoreboard.current_score > int(scoreboard.high_score):
+                scoreboard.high_score = scoreboard.current_score
+                scoreboard.record_hight_score(scoreboard.current_score)
+            scoreboard.current_score = 0
+            snake.refresh_snake()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+screen.exitonclick()
 
 
 
