@@ -18,6 +18,13 @@ class Snake:
         for coordinates in self.START_COORDINATES:
             self.add_snake_segment(coordinates)
 
+    def refresh_snake(self):
+        for segment in self.actual_snake:
+            segment.goto(600, 600)
+
+        self.actual_snake = []
+        self.make_start_snake()
+        self.head = self.actual_snake[0]
 
     def add_snake_segment(self, position):
         coordinates_x, coordinates_y = position[0], position[1]
@@ -26,7 +33,6 @@ class Snake:
         start_snake.color("white")
         start_snake.goto(coordinates_x, coordinates_y)
         self.actual_snake.append(start_snake)
-
 
     def extend_snake(self):
         self.add_snake_segment(self.actual_snake[-1].position())
@@ -55,6 +61,8 @@ class Snake:
         if self.head.heading() != self.LEFT:
             self.head.setheading(self.RIGHT)
 
-    def position_head_snake(self):
-        return self.head.pos()
+    # def position_head_snake(self):
+    #     return self.head.pos()
+
+
 
